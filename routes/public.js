@@ -3,6 +3,7 @@ const {
   postLoginUser,
   getAllUsers,
   getUserById,
+  getAllPostsByUserId,
 } = require("../controllers/public-controllers");
 const router = require("express").Router();
 
@@ -30,4 +31,8 @@ destination /user/getUserById
 access public
 */
 router.route("/profile/:id").post(getUserById);
+
+//POSTS BY USER
+router.route("/posts/all/:id").get(getAllPostsByUserId);
+
 module.exports = router;

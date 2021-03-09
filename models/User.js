@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
 //Do not use arrow function on a pre/post use an anonymous function
 userSchema.pre("save", function (next) {
   const user = this;
-  //IF PASSWORD IS NOT MODIFIED, MOVE FORWARD
+  //CHECK IF USER IS BEING CREATED OR CHANGED, IF NOT, MOVE ON
   if (!user.isModified("password")) return next;
   bcrypt.genSalt(10, function (error, salt) {
     //GO TO NEXT FUNCTIONALITY AND RETURN ERROR

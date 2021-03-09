@@ -5,13 +5,11 @@ connectDB = require("./config/connectDB");
 User = require("./models/User");
 PORT = process.env.PORT || 3001;
 
-//USER MODEL
-//const mongoose = require("mongoose");
 connectDB();
 
-//EXPRESS MIDDLEWARE ALLOWS YOU TO ACCEPT USER INPUT
+//EXPRESS MIDDLEWARE ALLOWS YOU TO PROTECT AUTH ROUTES
 app.use(express.json());
-app.use(express.urlencoded({ encoded: true }));
+app.use(express.urlencoded({ extended: true }));
 
 const publicRoutes = require("./routes/public");
 app.use("/user", publicRoutes);
