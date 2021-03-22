@@ -28,7 +28,6 @@ exports.postRegisterUser = async (req, res) => {
 };
 
 exports.postLoginUser = async (req, res) => {
-
   try {
     //show password to be able to compare to stored password
     const user = await User.findOne({ username: req.body.username }).select(
@@ -92,10 +91,22 @@ exports.getUserById = async (req, res) => {
 //find all posts by one user
 
 exports.getAllPostsByUserId = async (req, res) => {
-  const posts = await Post.find({ user: req.params.id }).populate("user");
-  const user = await await User.findOne({ _id: req.params.id });
-  console.log(req.headers);
-  // console.log(user);
-  // console.log(req.params.id);
-  res.json({ msg: `${user.username}'s posts`, posts });
+  try {
+    const posts = await Post.find({ user: req.params.id }).populate("user");
+    const user = await await User.findOne({ _id: req.params.id });
+    // console.log(req.headers);
+    // console.log(user);
+    // console.log(req.params.id);
+  } catch (e) {
+    res.json({ msg: `${user.username}'s posts`, posts });
+  }
+};
+
+exports.getPostByPostid = async (req, res) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id }).populate("likes");
+    return res.json({ msg: "Found post", post, likes: `${post.likes.length}` });
+  } catch (e) {
+    return res.json({ msg: "Error" });
+  }
 };

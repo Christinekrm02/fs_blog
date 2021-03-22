@@ -66,3 +66,28 @@ exports.putEditPost = async (req, res) => {
     }
   } catch (error) {}
 };
+
+putUpdatePostLikes = async (req, res) => {
+  try {
+    //Adds likes to post by user/removes like from post by user
+    //USER MUST BE LOGGED IN
+
+    const post = await Post.findOne({ _id: req.params.postid });
+    if (post) {
+      console.log(post);
+      if (post.likes.includes(String(req.user))) {
+        const filter = post.likes.filter(user => String(user) !== String(user));
+        post.likes = filter;
+        post.save();
+        res.json({ msg: "Post found", post });
+      } else {
+        post.likes.push(req.user);
+        post.save();
+        res.json({ msg: "found user:", post });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    //return res.json({ msg: "No post found" });
+  }
+};

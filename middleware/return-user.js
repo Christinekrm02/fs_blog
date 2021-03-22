@@ -1,4 +1,3 @@
-const user = require("../models/User");
 const jwt_decode = require("jwt-decode");
 const User = require("../models/User");
 

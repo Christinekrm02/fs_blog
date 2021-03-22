@@ -6,14 +6,18 @@ const postSchema = new mongoose.Schema(
       require: true,
       trim: true,
     },
-    likes: {
-      type: Number,
-      default: 0,
-    },
-    shares: {
-      type: Number,
-      default: 0,
-    },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    shares: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
